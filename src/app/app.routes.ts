@@ -54,6 +54,30 @@ export const routes: Routes = [
       },
 
       {
+        path: 'tawseela',
+
+        loadChildren: () =>
+          import(
+            './features/tawseela/tawseela.routes'
+          ).then(
+            routes =>
+              routes.tawseelaRoutes
+          )
+      },
+
+      {
+        path: 'home-services',
+
+        loadChildren: () =>
+          import(
+            './features/home-services/home-services.routes'
+          ).then(
+            routes =>
+              routes.HOME_SERVICES_ROUTES
+          )
+      },
+
+      {
         path: 'cart',
         component: Cart
       },

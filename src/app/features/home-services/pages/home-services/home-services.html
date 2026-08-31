@@ -1,0 +1,96 @@
+<section class="home-services-page">
+
+  <section class="services-hero">
+
+    <div class="container">
+
+      <span class="hero-badge">
+        خدمات منزلية
+      </span>
+
+      <h1>
+        كل خدمات بيتك
+        <span>في خدمتك</span>
+      </h1>
+
+      <p>
+        اختار الخدمة اللي محتاجها، واحنا هنساعدك تحجزها
+        بسهولة وفي الموعد اللي يناسبك.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <section class="services-section">
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <span>
+          خدماتنا المنزلية
+        </span>
+
+        <h2>
+          اختار الخدمة المناسبة ليك
+        </h2>
+
+        <p>
+          مجموعة من الخدمات المنزلية اللي تساعدك تخلص احتياجات بيتك بسهولة.
+        </p>
+
+      </div>
+
+
+      <div class="services-grid">
+
+        @for (service of services; track service.id) {
+
+          <a
+            class="service-card"
+            [routerLink]="['/home-services', service.id]"
+          >
+
+            <div class="service-icon">
+
+              <i
+                class="bi"
+                [class]="service.icon"
+              ></i>
+
+            </div>
+
+
+            <div class="service-content">
+
+              <h3>
+                {{ service.title }}
+              </h3>
+
+              <p>
+                {{ service.description }}
+              </p>
+
+              <span class="service-link">
+
+                اطلب الخدمة
+
+                <i class="bi bi-arrow-left"></i>
+
+              </span>
+
+            </div>
+
+          </a>
+
+        }
+
+      </div>
+
+    </div>
+
+  </section>
+
+</section>

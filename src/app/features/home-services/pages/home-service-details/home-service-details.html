@@ -1,0 +1,365 @@
+<section class="details-page">
+
+  @if (service) {
+
+    <section class="details-hero">
+
+      <div class="container">
+
+        <a
+          routerLink="/home-services"
+          class="back-link"
+        >
+          <i class="bi bi-arrow-right"></i>
+          العودة للخدمات
+        </a>
+
+
+        <div class="hero-service">
+
+          <div class="hero-icon">
+
+            <i
+              class="bi"
+              [class]="service.icon"
+            ></i>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              خدمة منزلية
+            </span>
+
+            <h1>
+              {{ service.title }}
+            </h1>
+
+            <p>
+              {{ service.description }}
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="details-section">
+
+      <div class="container">
+
+
+        @if (service.type === 'products') {
+
+          <div class="section-title">
+
+            <span>
+              اختار احتياجاتك
+            </span>
+
+            <h2>
+              المنتجات والخدمات المتاحة
+            </h2>
+
+            <p>
+              اختار الكمية المطلوبة لكل منتج باستخدام + و -.
+            </p>
+
+          </div>
+
+
+          <div class="products-grid">
+
+            @for (product of service.products; track product.id) {
+
+              <div class="product-card">
+
+                <div class="product-image">
+
+                  <img
+                    [src]="product.image"
+                    [alt]="product.name"
+                  >
+
+                </div>
+
+
+                <div class="product-info">
+
+                  <h3>
+                    {{ product.name }}
+                  </h3>
+
+                  <p>
+                    {{ product.description }}
+                  </p>
+
+
+                  <strong class="product-price">
+                    {{ product.price }} جنيه
+                  </strong>
+
+
+                  <div class="quantity-box">
+
+                    <button
+                      type="button"
+                      (click)="decrease(product)"
+                    >
+                      -
+                    </button>
+
+                    <span>
+                      {{ product.quantity }}
+                    </span>
+
+                    <button
+                      type="button"
+                      (click)="increase(product)"
+                    >
+                      +
+                    </button>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            }
+
+          </div>
+
+        }
+
+
+        @if (service.type === 'form') {
+
+          <div class="simple-service">
+
+            <div class="simple-icon">
+
+              <i
+                class="bi"
+                [class]="service.icon"
+              ></i>
+
+            </div>
+
+
+            <div>
+
+              <h2>
+                احجز {{ service.title }}
+              </h2>
+
+              <p>
+                اكتب بياناتك وحدد الموعد المناسب، وفريقنا هيتواصل معاك لتأكيد الخدمة.
+              </p>
+
+            </div>
+
+          </div>
+
+        }
+
+
+        <div class="booking-box">
+
+          <div class="booking-heading">
+
+            <i class="bi bi-calendar-check"></i>
+
+            <div>
+
+              <h2>
+                بيانات الطلب
+              </h2>
+
+              <p>
+                اكتب بياناتك وحدد الموعد المناسب للخدمة.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-grid">
+
+            <div class="field">
+
+              <label>
+                الاسم
+              </label>
+
+              <input
+                type="text"
+                [(ngModel)]="customerName"
+                placeholder="اكتب اسمك"
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                رقم الهاتف
+              </label>
+
+              <input
+                type="tel"
+                [(ngModel)]="phone"
+                placeholder="01xxxxxxxxx"
+              >
+
+            </div>
+
+
+            <div class="field full">
+
+              <label>
+                العنوان
+              </label>
+
+              <input
+                type="text"
+                [(ngModel)]="address"
+                placeholder="اكتب عنوان الخدمة بالتفصيل"
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                تاريخ الخدمة
+              </label>
+
+              <input
+                type="date"
+                [(ngModel)]="appointmentDate"
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                وقت الخدمة
+              </label>
+
+              <input
+                type="time"
+                [(ngModel)]="appointmentTime"
+              >
+
+            </div>
+
+
+            <div class="field full">
+
+              <label>
+                ملاحظات إضافية
+              </label>
+
+              <textarea
+                [(ngModel)]="notes"
+                rows="4"
+                placeholder="اكتب أي تفاصيل أو ملاحظات خاصة بالطلب..."
+              ></textarea>
+
+            </div>
+
+          </div>
+
+
+          @if (service.type === 'products') {
+
+            <div class="order-summary">
+
+              <div>
+
+                <span>
+                  عدد القطع
+                </span>
+
+                <strong>
+                  {{ totalItems }}
+                </strong>
+
+              </div>
+
+
+              <div>
+
+                <span>
+                  الإجمالي
+                </span>
+
+                <strong>
+                  {{ totalPrice }} جنيه
+                </strong>
+
+              </div>
+
+            </div>
+
+          }
+
+
+          <button
+            type="button"
+            class="confirm-btn"
+            (click)="confirmOrder()"
+          >
+
+            <i class="bi bi-check-circle-fill"></i>
+
+            تأكيد الطلب
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  }
+
+
+  @if (!service) {
+
+    <section class="not-found">
+
+      <div class="container">
+
+        <i class="bi bi-exclamation-circle"></i>
+
+        <h2>
+          الخدمة غير موجودة
+        </h2>
+
+        <a
+          routerLink="/home-services"
+        >
+          العودة للخدمات
+        </a>
+
+      </div>
+
+    </section>
+
+  }
+
+</section>
