@@ -1,0 +1,181 @@
+<div class="container my-5">
+  <div class="text-center mb-4">
+    <h2 class="fw-bold title-text">🛒 إتمام الطلب والدفع</h2>
+    <p class="text-muted">مراجعة المنتجات وتأكيد بيانات التوصيل</p>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-6 order-lg-2">
+      <div class="card border-0 shadow-sm p-4 rounded-4 summary-card">
+        <h4 class="fw-bold mb-4 d-flex align-items-center gap-2">
+          <span>📦</span> المنتجات المطلوبة
+        </h4>
+
+        <div *ngIf="items.length === 0" class="text-center py-5">
+          <div class="empty-cart-icon mb-3">🛒</div>
+          <h5 class="fw-bold text-muted">سلتك فارغة حالياً</h5>
+          <p class="text-secondary small">لم تقم بإضافة أي منتجات للطلب بعد.</p>
+          <a routerLink="/" class="btn btn-primary rounded-pill px-4 mt-2">تصفح المنتجات</a>
+        </div>
+
+        <div *ngIf="items.length > 0">
+          <div class="cart-items-list">
+            <div *ngFor="let item of items; let i = index" class="d-flex align-items-center justify-content-between p-3 mb-3 border rounded-3 bg-light-subtle item-card">
+              <div class="d-flex align-items-center gap-3">
+                <img [src]="item.image" [alt]="item.name" class="rounded-3 product-img" style="width: 70px; height: 70px; object-fit: cover;">
+                <div>
+                  <h6 class="fw-bold mb-1">{{ item.name }}</h6>
+                  <span class="badge bg-light text-dark border mb-1">من المتجر</span>
+                  <div class="text-success small fw-semibold">متوفر في المخزن - جاهز للشحن</div>
+                  <div class="fw-bold text-primary fs-5 mt-1">{{ item.price }} EGP</div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center gap-2">
+                <div class="quantity-controls d-flex align-items-center border rounded-pill p-1 bg-white">
+                  <button type="button" class="btn btn-sm btn-light rounded-circle" (click)="decreaseQty(i)">-</button>
+                  <span class="fw-bold px-3">{{ item.quantity }}</span>
+                  <button type="button" class="btn btn-sm btn-light rounded-circle" (click)="increaseQty(i)">+</button>
+                </div>
+                <button type="button" class="btn btn-outline-danger btn-sm border-0 rounded-circle p-2 ms-2" (click)="removeItem(i)" title="إزالة">
+                  🗑️
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <div class="order-summary-details">
+            <div class="d-flex justify-content-between mb-2 text-muted">
+              <span>إجمالي المنتجات:</span>
+              <span class="fw-semibold">{{ calculateSubtotal() }} EGP</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2 text-muted">
+              <span>مصاريف الشحن:</span>
+              <span class="text-success fw-semibold">مجاني ⚡</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
+              <span class="fs-5 fw-bold">الإجمالي النهائي:</span>
+              <span class="fs-3 fw-bold text-success">{{ calculateSubtotal() }} EGP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 order-lg-1">
+      <div class="card border-0 shadow-sm p-4 rounded-4 checkout-form-card">
+        <h4 class="fw-bold mb-4 d-flex align-items-center gap-2">
+          <span>🚚</span> بيانات التوصيل والدفع
+        </h4>
+
+        <form (ngSubmit)="submitOrder()">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">الاسم بالكامل <span class="text-danger">*</span></label>
+            <input type="text" class="form-control form-control-lg rounded-3 fs-6" [(ngModel)]="customerData.name" name="name" placeholder="أدخل اسمك الثلاثي" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">رقم الهاتف <span class="text-danger">*</span></label>
+            <input type="tel" class="form-control form-control-lg rounded-3 fs-6" [(ngModel)]="customerData.phone" name="phone" placeholder="01xxxxxxxxx" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">الدولة</label>
+            <select class="form-select form-select-lg rounded-3 fs-6" [(ngModel)]="customerData.country" name="country">
+              <option value="">اختر الدولة</option>
+              <option value="مصر">مصر</option>
+              <option value="السعودية">السعودية</option>
+              <option value="الإمارات">الإمارات</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">العنوان التفصيلي <span class="text-danger">*</span></label>
+            <textarea class="form-control form-control-lg rounded-3 fs-6" rows="3" [(ngModel)]="customerData.address" name="address" placeholder="المدينة، الحي، الشارع، رقم المبنى..." required></textarea>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label fw-semibold mb-2">طريقة الدفع 💳</label>
+            <div class="d-flex flex-column gap-2 mb-3">
+              <div class="form-check payment-option border rounded-3 p-3">
+                <input class="form-check-input" type="radio" name="paymentMethod" id="cash" value="cash" [(ngModel)]="customerData.paymentMethod">
+                <label class="form-check-label fw-semibold ms-2" for="cash">
+                  💵 الدفع عند الاستلام (كاش)
+                </label>
+              </div>
+
+              <div class="form-check payment-option border rounded-3 p-3">
+                <input class="form-check-input" type="radio" name="paymentMethod" id="visa" value="visa" [(ngModel)]="customerData.paymentMethod">
+                <label class="form-check-label fw-semibold ms-2" for="visa">
+                  💳 كارت بنكي (ميزة / مَاستركارد)
+                </label>
+              </div>
+            </div>
+
+            <div *ngIf="customerData.paymentMethod === 'visa'" class="card p-3 border rounded-3 bg-light">
+              <h6 class="fw-bold mb-3">💳 بيانات الفيزا</h6>
+
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">اسم صاحب البطاقة</label>
+                <input type="text" class="form-control rounded-3" [(ngModel)]="visaData.cardHolder" name="cardHolder" placeholder="الاسم المكتوب على الكارت" required>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">رقم الكارت</label>
+                <input type="text" class="form-control rounded-3" [(ngModel)]="visaData.cardNumber" name="cardNumber" maxlength="16" placeholder="0000 0000 0000 0000" required>
+              </div>
+
+              <div class="row g-2">
+                <div class="col-6">
+                  <label class="form-label small fw-semibold">تاريخ الانتهاء</label>
+                  <input type="text" class="form-control rounded-3" [(ngModel)]="visaData.expiryDate" name="expiryDate" placeholder="MM/YY" maxlength="5" required>
+                </div>
+                <div class="col-6">
+                  <label class="form-label small fw-semibold">رمز الأمان (CVV)</label>
+                  <input type="password" class="form-control rounded-3" [(ngModel)]="visaData.cvv" name="cvv" maxlength="3" placeholder="123" required>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-success btn-lg w-100 py-3 rounded-3 fw-bold shadow-sm mt-2">
+            تأكيد وإرسال الطلب 📌
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 mt-5 text-center">
+    <div class="col-6 col-md-3">
+      <div class="p-3 border rounded-4 bg-white shadow-sm">
+        <div class="fs-2 mb-1">🚀</div>
+        <h6 class="fw-bold mb-1">توصيل سريع</h6>
+        <p class="text-muted small mb-0">توصيل في نفس اليوم لجميع الطلبات</p>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="p-3 border rounded-4 bg-white shadow-sm">
+        <div class="fs-2 mb-1">🔒</div>
+        <h6 class="fw-bold mb-1">دفع آمن 100%</h6>
+        <p class="text-muted small mb-0">تشفير كامل لبياناتك الشخصية والبنكية</p>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="p-3 border rounded-4 bg-white shadow-sm">
+        <div class="fs-2 mb-1">⭐</div>
+        <h6 class="fw-bold mb-1">ضمان الجودة</h6>
+        <p class="text-muted small mb-0">منتجات أصلية ومضمونة من المصدر</p>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="p-3 border rounded-4 bg-white shadow-sm">
+        <div class="fs-2 mb-1">🎧</div>
+        <h6 class="fw-bold mb-1">دعم فني 24/7</h6>
+        <p class="text-muted small mb-0">مستعدون لمساعدتك في أي وقت</p>
+      </div>
+    </div>
+  </div>
+</div>
