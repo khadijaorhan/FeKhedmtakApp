@@ -1,0 +1,696 @@
+<section class="tawseela-page">
+
+  <section class="tawseela-hero">
+
+    <div class="container">
+
+      <span class="hero-badge">
+        خدمة التوصيلة
+      </span>
+
+      <h1>
+        مشوارك
+        <span>في خدمتك</span>
+      </h1>
+
+      <p>
+        اختار نوع التوصيلة المناسبة ليك،
+        وحدد المكان والموعد وإحنا نوصلّك بسهولة وأمان.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <section class="types-section">
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <span>
+          اختر نوع الخدمة
+        </span>
+
+        <h2>
+          هتحتاج توصيل إيه؟
+        </h2>
+
+        <p>
+          اختار الخدمة المناسبة ليك عشان نجهز تفاصيل الطلب.
+        </p>
+
+      </div>
+
+
+      <div class="types-grid">
+
+        @for (service of services; track service.id) {
+
+          <button
+            type="button"
+            class="type-card"
+            [class.selected]="selectedType === service.id"
+            (click)="selectService(service.id)"
+          >
+
+            <div class="type-icon">
+
+              <i
+                class="bi"
+                [class]="service.icon"
+              ></i>
+
+            </div>
+
+            <div class="type-content">
+
+              <h3>
+                {{ service.title }}
+              </h3>
+
+              <p>
+                {{ service.description }}
+              </p>
+
+              <span class="type-action">
+
+                {{
+                  selectedType === service.id
+                    ? 'تم الاختيار'
+                    : 'اختار الخدمة'
+                }}
+
+                <i class="bi bi-arrow-left"></i>
+
+              </span>
+
+            </div>
+
+          </button>
+
+        }
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  @if (selectedType) {
+
+    <section class="booking-section">
+
+      <div class="container">
+
+        <div class="booking-layout">
+
+
+          <div class="booking-form">
+
+
+            <div class="booking-header">
+
+              <div class="selected-service-icon">
+
+                <i
+                  class="bi"
+                  [class]="selectedService?.icon"
+                ></i>
+
+              </div>
+
+              <div>
+
+                <span>
+                  الخدمة المختارة
+                </span>
+
+                <h2>
+                  {{ selectedService?.title }}
+                </h2>
+
+              </div>
+
+            </div>
+
+
+            <div class="form-section">
+
+              <div class="form-section-title">
+
+                <i class="bi bi-geo-alt-fill"></i>
+
+                <div>
+
+                  <h3>
+                    تفاصيل الرحلة
+                  </h3>
+
+                  <p>
+                    حدد مكان البداية والنهاية.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="location-fields">
+
+                <div class="field">
+
+                  <label>
+                    من
+                  </label>
+
+                  <div class="input-wrapper">
+
+                    <i class="bi bi-geo-alt"></i>
+
+                    <input
+                      type="text"
+                      [(ngModel)]="fromLocation"
+                      placeholder="مكان الاستلام"
+                      (ngModelChange)="calculatePrice()"
+                    >
+
+                  </div>
+
+                </div>
+
+
+                <div class="route-line">
+
+                  <span></span>
+
+                </div>
+
+
+                <div class="field">
+
+                  <label>
+                    إلى
+                  </label>
+
+                  <div class="input-wrapper">
+
+                    <i class="bi bi-flag-fill"></i>
+
+                    <input
+                      type="text"
+                      [(ngModel)]="toLocation"
+                      placeholder="مكان الوصول"
+                      (ngModelChange)="calculatePrice()"
+                    >
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="form-section">
+
+              <div class="form-section-title">
+
+                <i class="bi bi-calendar-check"></i>
+
+                <div>
+
+                  <h3>
+                    موعد التوصيلة
+                  </h3>
+
+                  <p>
+                    اختار اليوم والساعة المناسبة ليك.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="date-time-grid">
+
+                <div class="field">
+
+                  <label>
+                    التاريخ
+                  </label>
+
+                  <input
+                    type="date"
+                    [(ngModel)]="bookingDate"
+                  >
+
+                </div>
+
+
+                <div class="field">
+
+                  <label>
+                    الساعة
+                  </label>
+
+                  <input
+                    type="time"
+                    [(ngModel)]="bookingTime"
+                  >
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            @if (selectedType !== 'package') {
+
+              <div class="form-section">
+
+                <div class="form-section-title">
+
+                  <i class="bi bi-people-fill"></i>
+
+                  <div>
+
+                    <h3>
+                      تفاصيل الركاب
+                    </h3>
+
+                    <p>
+                      حدد عدد الأشخاص والشنط.
+                    </p>
+
+                  </div>
+
+                </div>
+
+
+                <div class="counters-grid">
+
+
+                  <div class="counter-box">
+
+                    <div>
+
+                      <span>
+                        عدد الأفراد
+                      </span>
+
+                      <small>
+                        حتى 20 فرد
+                      </small>
+
+                    </div>
+
+
+                    <div class="counter">
+
+                      <button
+                        type="button"
+                        (click)="decreasePassengers()"
+                      >
+                        −
+                      </button>
+
+                      <strong>
+                        {{ passengers }}
+                      </strong>
+
+                      <button
+                        type="button"
+                        (click)="increasePassengers()"
+                      >
+                        +
+                      </button>
+
+                    </div>
+
+                  </div>
+
+
+                  <div class="counter-box">
+
+                    <div>
+
+                      <span>
+                        عدد الشنط
+                      </span>
+
+                      <small>
+                        شنط وأمتعة
+                      </small>
+
+                    </div>
+
+
+                    <div class="counter">
+
+                      <button
+                        type="button"
+                        (click)="decreaseBags()"
+                      >
+                        −
+                      </button>
+
+                      <strong>
+                        {{ bags }}
+                      </strong>
+
+                      <button
+                        type="button"
+                        (click)="increaseBags()"
+                      >
+                        +
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            }
+
+
+            @if (selectedType === 'package') {
+
+              <div class="form-section">
+
+                <div class="form-section-title">
+
+                  <i class="bi bi-box-seam-fill"></i>
+
+                  <div>
+
+                    <h3>
+                      تفاصيل الطرد
+                    </h3>
+
+                    <p>
+                      اكتب تفاصيل الطرد ووزنه.
+                    </p>
+
+                  </div>
+
+                </div>
+
+
+                <div class="field">
+
+                  <label>
+                    وصف الطرد
+                  </label>
+
+                  <textarea
+                    [(ngModel)]="packageDescription"
+                    rows="4"
+                    placeholder="مثال: كرتونة ملابس، مستندات، أجهزة..."
+                  ></textarea>
+
+                </div>
+
+
+                <div class="counter-box package-counter">
+
+                  <div>
+
+                    <span>
+                      وزن الطرد
+                    </span>
+
+                    <small>
+                      بالكيلو
+                    </small>
+
+                  </div>
+
+
+                  <div class="counter">
+
+                    <button
+                      type="button"
+                      (click)="decreaseWeight()"
+                    >
+                      −
+                    </button>
+
+                    <strong>
+                      {{ packageWeight }} كجم
+                    </strong>
+
+                    <button
+                      type="button"
+                      (click)="increaseWeight()"
+                    >
+                      +
+                    </button>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            }
+
+
+            <div class="form-section">
+
+              <div class="field">
+
+                <label>
+                  ملاحظات إضافية
+                </label>
+
+                <textarea
+                  [(ngModel)]="notes"
+                  rows="4"
+                  placeholder="اكتب أي تفاصيل أو ملاحظات للسائق..."
+                ></textarea>
+
+              </div>
+
+            </div>
+
+
+            <button
+              type="button"
+              class="confirm-btn"
+              (click)="confirmOrder()"
+            >
+
+              <i class="bi bi-check-circle-fill"></i>
+
+              تأكيد طلب التوصيلة
+
+            </button>
+
+
+          </div>
+
+
+          <div class="booking-side">
+
+
+            <div class="map-card">
+
+              <div class="map-header">
+
+                <div>
+
+                  <span>
+                    خريطة الرحلة
+                  </span>
+
+                  <h3>
+                    مسار التوصيلة
+                  </h3>
+
+                </div>
+
+                <i class="bi bi-map-fill"></i>
+
+              </div>
+
+
+              <div class="fake-map">
+
+                <div class="map-road road-one"></div>
+
+                <div class="map-road road-two"></div>
+
+                <div class="map-road road-three"></div>
+
+                <div class="map-road road-four"></div>
+
+
+                <div class="map-location start">
+
+                  <i class="bi bi-geo-alt-fill"></i>
+
+                  <span>
+                    البداية
+                  </span>
+
+                </div>
+
+
+                <div class="map-route"></div>
+
+
+                <div class="map-location end">
+
+                  <i class="bi bi-flag-fill"></i>
+
+                  <span>
+                    الوصول
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div class="map-info">
+
+                <div>
+
+                  <span>
+                    المسافة التقديرية
+                  </span>
+
+                  <strong>
+                    {{ estimatedDistance }} كم
+                  </strong>
+
+                </div>
+
+                <div>
+
+                  <span>
+                    زمن الرحلة
+                  </span>
+
+                  <strong>
+                    {{ estimatedDistance * 3 }} دقيقة
+                  </strong>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="price-card">
+
+              <div class="price-header">
+
+                <div>
+
+                  <span>
+                    السعر التقديري
+                  </span>
+
+                  <h3>
+                    تكلفة التوصيلة
+                  </h3>
+
+                </div>
+
+                <i class="bi bi-cash-stack"></i>
+
+              </div>
+
+
+              <div class="price">
+
+                <strong>
+                  {{ estimatedPrice }}
+                </strong>
+
+                <span>
+                  جنيه
+                </span>
+
+              </div>
+
+
+              <p>
+                السعر تقديري وقد يتغير حسب المسافة
+                وتفاصيل الطلب الفعلية.
+              </p>
+
+
+              <div class="price-details">
+
+                <div>
+
+                  <span>
+                    نوع الخدمة
+                  </span>
+
+                  <strong>
+                    {{ selectedService?.title }}
+                  </strong>
+
+                </div>
+
+                <div>
+
+                  <span>
+                    المسافة
+                  </span>
+
+                  <strong>
+                    {{ estimatedDistance }} كم
+                  </strong>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="safety-card">
+
+              <i class="bi bi-shield-check"></i>
+
+              <div>
+
+                <h4>
+                  توصيل آمن
+                </h4>
+
+                <p>
+                  بنهتم بأمان طلبك ونسعى لتوصيله
+                  في الموعد المحدد.
+                </p>
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  }
+
+</section>

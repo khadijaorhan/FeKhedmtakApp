@@ -1,7 +1,6 @@
 <section class="home-page">
 
-  <!-- Hero -->
-  <div class="hero-section">
+  <section class="hero-section">
 
     <div class="container">
 
@@ -18,9 +17,9 @@
 
         <p>
           اطلب احتياجاتك من السوبر ماركت والصيدلية،
-          اختار هديتك، وتابع كل طلباتك بسهولة.
+          اطلب خدماتك المنزلية، اختار هديتك،
+          أو اطلب توصيلتك بسهولة.
         </p>
-
 
         <div class="hero-actions">
 
@@ -30,10 +29,8 @@
             class="service-btn"
           >
             <i class="bi bi-basket2-fill"></i>
-
-            السوبر ماركت
+            <span>السوبر ماركت</span>
           </a>
-
 
           <a
             routerLink="/pharmacy"
@@ -41,10 +38,8 @@
             class="service-btn"
           >
             <i class="bi bi-capsule"></i>
-
-            الصيدلية
+            <span>الصيدلية</span>
           </a>
-
 
           <a
             routerLink="/gifts"
@@ -52,8 +47,43 @@
             class="service-btn"
           >
             <i class="bi bi-gift-fill"></i>
+            <span>الهدايا</span>
+          </a>
 
-            الهدايا
+          <a
+            routerLink="/tawseela"
+            routerLinkActive="active-service"
+            class="service-btn"
+          >
+            <i class="bi bi-truck"></i>
+            <span>توصيله</span>
+          </a>
+
+          <a
+            routerLink="/home-services"
+            routerLinkActive="active-service"
+            class="service-btn"
+          >
+            <i class="bi bi-house-heart-fill"></i>
+            <span>خدمات منزلية</span>
+          </a>
+
+          <a
+            routerLink="/laundry"
+            class="service-btn coming-soon-btn"
+          >
+            <i class="bi bi-car-front-fill"></i>
+            <span>غسيل سيارات</span>
+            <small>قريباً</small>
+          </a>
+
+          <a
+            routerLink="/shipping"
+            class="service-btn coming-soon-btn"
+          >
+            <i class="bi bi-box-seam-fill"></i>
+            <span>شحن ونقل</span>
+            <small>قريباً</small>
           </a>
 
         </div>
@@ -62,11 +92,9 @@
 
     </div>
 
-  </div>
+  </section>
 
-
-  <!-- Services -->
-  <div class="services-section">
+  <section class="services-section">
 
     <div class="container">
 
@@ -86,11 +114,8 @@
 
       </div>
 
-
       <div class="services-grid">
 
-
-        <!-- Supermarket -->
         <a
           routerLink="/supermarket"
           class="service-card"
@@ -100,24 +125,26 @@
             <i class="bi bi-basket2-fill"></i>
           </div>
 
-          <h3>
-            السوبر ماركت
-          </h3>
+          <div class="service-content">
 
-          <p>
-            تسوق كل احتياجات البيت والمنتجات اليومية بسهولة.
-          </p>
+            <h3>
+              السوبر ماركت
+            </h3>
 
-          <span>
-            تصفح المنتجات
+            <p>
+              تسوق كل احتياجات البيت والمنتجات اليومية
+              بسهولة ومن مكان واحد.
+            </p>
 
-            <i class="bi bi-arrow-left"></i>
-          </span>
+            <span class="service-link">
+              تصفح المنتجات
+              <i class="bi bi-arrow-left"></i>
+            </span>
+
+          </div>
 
         </a>
 
-
-        <!-- Pharmacy -->
         <a
           routerLink="/pharmacy"
           class="service-card"
@@ -127,24 +154,26 @@
             <i class="bi bi-capsule"></i>
           </div>
 
-          <h3>
-            الصيدلية
-          </h3>
+          <div class="service-content">
 
-          <p>
-            احصل على احتياجاتك من الصيدلية بسرعة وسهولة.
-          </p>
+            <h3>
+              الصيدلية
+            </h3>
 
-          <span>
-            تصفح الصيدلية
+            <p>
+              احصل على احتياجاتك من الصيدلية
+              بسرعة وسهولة.
+            </p>
 
-            <i class="bi bi-arrow-left"></i>
-          </span>
+            <span class="service-link">
+              تصفح الصيدلية
+              <i class="bi bi-arrow-left"></i>
+            </span>
+
+          </div>
 
         </a>
 
-
-        <!-- Gifts -->
         <a
           routerLink="/gifts"
           class="service-card"
@@ -154,19 +183,147 @@
             <i class="bi bi-gift-fill"></i>
           </div>
 
-          <h3>
-            الهدايا
-          </h3>
+          <div class="service-content">
 
-          <p>
-            اختار الهدية المناسبة وخصص صندوق هديتك بنفسك.
-          </p>
+            <h3>
+              الهدايا
+            </h3>
 
-          <span>
-            اختار هديتك
+            <p>
+              اختار الهدية المناسبة وخصص صندوق
+              هديتك بالطريقة اللي تحبها.
+            </p>
 
-            <i class="bi bi-arrow-left"></i>
-          </span>
+            <span class="service-link">
+              اختار هديتك
+              <i class="bi bi-arrow-left"></i>
+            </span>
+
+          </div>
+
+        </a>
+
+        <a
+          routerLink="/tawseela"
+          class="service-card"
+        >
+
+          <div class="service-icon">
+            <i class="bi bi-truck"></i>
+          </div>
+
+          <div class="service-content">
+
+            <h3>
+              توصيله
+            </h3>
+
+            <p>
+              محتاج تبعت أو تستلم حاجة؟
+              إحنا نوصلها ليك بسرعة وأمان.
+            </p>
+
+            <span class="service-link">
+              اطلب توصيله
+              <i class="bi bi-arrow-left"></i>
+            </span>
+
+          </div>
+
+        </a>
+
+        <a
+          routerLink="/home-services"
+          class="service-card"
+        >
+
+          <div class="service-icon">
+            <i class="bi bi-house-heart-fill"></i>
+          </div>
+
+          <div class="service-content">
+
+            <h3>
+              خدمات منزلية
+            </h3>
+
+            <p>
+              اطلب الخدمات اللي تحتاجها في بيتك
+              بكل سهولة ومن غير تعب.
+            </p>
+
+            <span class="service-link">
+              اكتشف الخدمات
+              <i class="bi bi-arrow-left"></i>
+            </span>
+
+          </div>
+
+        </a>
+
+        <a
+          routerLink="/laundry"
+          class="service-card coming-soon-card"
+        >
+
+          <div class="service-icon">
+            <i class="bi bi-car-front-fill"></i>
+          </div>
+
+          <div class="service-content">
+
+            <span class="coming-soon-badge">
+              قريباً
+            </span>
+
+            <h3>
+              غسيل سيارات
+            </h3>
+
+            <p>
+              احجز خدمة غسيل وتنظيف سيارتك
+              بسهولة ومن مكانك.
+            </p>
+
+            <span class="service-link">
+              قريباً
+              <i class="bi bi-arrow-left"></i>
+            </span>
+
+          </div>
+
+        </a>
+
+        <a
+          routerLink="/shipping"
+          class="service-card coming-soon-card"
+        >
+
+          <div class="service-icon">
+            <i class="bi bi-box-seam-fill"></i>
+          </div>
+
+          <div class="service-content">
+
+            <span class="coming-soon-badge">
+              قريباً
+            </span>
+
+            <h3>
+              شحن ونقل
+            </h3>
+
+            <p>
+              خدمات شحن ونقل للطرود
+              والمستلزمات بسهولة وأمان.
+            </p>
+
+            <span class="service-link">
+              قريباً
+              <i class="bi bi-arrow-left"></i>
+            </span>
+
+          </div>
 
         </a>
 
@@ -174,11 +331,9 @@
 
     </div>
 
-  </div>
+  </section>
 
-
-  <!-- Why Us -->
-  <div class="why-us-section">
+  <section class="why-us-section">
 
     <div class="container">
 
@@ -192,11 +347,13 @@
           تجربة أسهل وأسرع
         </h2>
 
+        <p>
+          بنحاول نخلي كل احتياجاتك اليومية في مكان واحد.
+        </p>
+
       </div>
 
-
       <div class="features-grid">
-
 
         <div class="feature">
 
@@ -209,14 +366,13 @@
             </h4>
 
             <p>
-              اجمع مشترياتك من السوبر ماركت والصيدلية
-              والهدايا في سلة واحدة.
+              اجمع مشترياتك من الخدمات المختلفة
+              في طلب واحد بسهولة.
             </p>
 
           </div>
 
         </div>
-
 
         <div class="feature">
 
@@ -229,13 +385,13 @@
             </h4>
 
             <p>
-              تابع طلباتك من وقت تأكيد الطلب وحتى التوصيل.
+              تابع طلباتك من وقت التأكيد
+              وحتى وصولها ليك.
             </p>
 
           </div>
 
         </div>
-
 
         <div class="feature">
 
@@ -248,7 +404,27 @@
             </h4>
 
             <p>
-              تجربة بسيطة ومنظمة لكل احتياجاتك اليومية.
+              تجربة بسيطة ومنظمة لكل احتياجاتك
+              اليومية.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="feature">
+
+          <i class="bi bi-headset"></i>
+
+          <div>
+
+            <h4>
+              دعم مستمر
+            </h4>
+
+            <p>
+              إحنا موجودين علشان نساعدك
+              ونوفرلك أفضل تجربة.
             </p>
 
           </div>
@@ -259,7 +435,6 @@
 
     </div>
 
-  </div>
+  </section>
 
 </section>
-
