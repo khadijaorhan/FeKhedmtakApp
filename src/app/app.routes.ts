@@ -26,6 +26,10 @@ import {
   ForgotPassword
 } from './shared/auth/pages/forgot-password/forgot-password';
 
+import {
+  OrdersComponent
+} from './features/orders/orders.component';
+
 
 export const routes: Routes = [
 
@@ -39,6 +43,18 @@ export const routes: Routes = [
       {
         path: '',
         component: Home
+      },
+
+      {
+        path: 'supermarket',
+
+        loadChildren: () =>
+          import(
+            './features/supermarket/supermarket.routes'
+          ).then(
+            routes =>
+              routes.SUPERMARKET_ROUTES
+          )
       },
 
       {
@@ -56,6 +72,11 @@ export const routes: Routes = [
       {
         path: 'cart',
         component: Cart
+      },
+
+      {
+        path: 'orders',
+        component: OrdersComponent
       },
 
       {
